@@ -214,9 +214,11 @@ subprojects {
     reobf {
         shadowJar {}
     }
-    
-    build.dependsOn shadowJar
-    build.dependsOn reobfShadowJar
+
+    tasks.named('build') {
+        dependsOn shadowJar
+        dependsOn reobfShadowJar
+    }
     
     lombok {
         version = "1.18.20"
