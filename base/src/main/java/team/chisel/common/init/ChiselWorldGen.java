@@ -23,11 +23,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.placement.CountPlacement;
-import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
+import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.registries.DeferredRegister;
@@ -36,6 +32,7 @@ import net.minecraftforge.registries.RegistryObject;
 import team.chisel.Chisel;
 import team.chisel.Features;
 import team.chisel.client.data.VariantTemplates;
+import team.chisel.common.config.Configurations;
 import team.chisel.common.world.ReplaceBlockDownwardsFeature;
 import team.chisel.common.world.ReplaceMultipleBlocksConfig;
 import team.chisel.common.world.UnderLavaPlacement;
@@ -62,14 +59,14 @@ public class ChiselWorldGen {
     // Marble (33x *6 @ y24 +48)
     private static final NonNullSupplier<Holder<PlacedFeature>> LIMESTONE = createPlacedFeature("limestone",
             () -> Feature.ORE,
-            () -> new OreConfiguration(OreFeatures.NATURAL_STONE, Features.LIMESTONE.get(VariantTemplates.RAW.getName()).get().defaultBlockState(), 33),
-            CountPlacement.of(6), HeightRangePlacement.uniform(VerticalAnchor.absolute(64), VerticalAnchor.aboveBottom(48)));
+            () -> new OreConfiguration(OreFeatures.NATURAL_STONE, Features.LIMESTONE.get(VariantTemplates.RAW.getName()).get().defaultBlockState(), Configurations.limestoneAmount.get()),
+            commonOrePlacement(Configurations.limestoneVeinsPerChunk.get(), HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(48), VerticalAnchor.absolute(64))));
     
     // Limestone (33x *6 @ y64 +48)
     private static final NonNullSupplier<Holder<PlacedFeature>> MARBLE = createPlacedFeature("marble",
             () -> Feature.ORE,
-            () -> new OreConfiguration(OreFeatures.NATURAL_STONE, Features.MARBLE.get(VariantTemplates.RAW.getName()).get().defaultBlockState(), 33),
-            CountPlacement.of(6), HeightRangePlacement.uniform(VerticalAnchor.absolute(24), VerticalAnchor.aboveBottom(48)));
+            () -> new OreConfiguration(OreFeatures.NATURAL_STONE, Features.MARBLE.get(VariantTemplates.RAW.getName()).get().defaultBlockState(), Configurations.marbleAmount.get()),
+            commonOrePlacement(Configurations.marbleVeinsPerChunk.get(), HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(48), VerticalAnchor.absolute(24))));
     
     public static void registerWorldGen(BiomeLoadingEvent event) {
     	if (event.getName() == null) return;
@@ -79,7 +76,7 @@ public class ChiselWorldGen {
             features.addAll(List.of(LIMESTONE.get(), MARBLE.get()));
         }
     }
-    
+
     private static <FC extends FeatureConfiguration, F extends Feature<FC>> NonNullSupplier<Holder<PlacedFeature>> createPlacedFeature(String name, Supplier<F> feature, Supplier<FC> config, PlacementModifier... modifiers) {
         return NonNullSupplier.lazy(() -> {
             Holder<ConfiguredFeature<?, ?>> configured = BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(Chisel.MOD_ID, name),
@@ -87,5 +84,27 @@ public class ChiselWorldGen {
             return BuiltinRegistries.register(BuiltinRegistries.PLACED_FEATURE, new ResourceLocation(Chisel.MOD_ID, name),
                     new PlacedFeature(Holder.hackyErase(configured), List.of(modifiers)));
         });
+    }
+
+    private static <FC extends FeatureConfiguration, F extends Feature<FC>> NonNullSupplier<Holder<PlacedFeature>> createPlacedFeature(String name, Supplier<F> feature, Supplier<FC> config, List<PlacementModifier> modifiers) {
+        return NonNullSupplier.lazy(() -> {
+            Holder<ConfiguredFeature<?, ?>> configured = BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(Chisel.MOD_ID, name),
+                    new ConfiguredFeature<>(feature.get(), config.get()));
+            return BuiltinRegistries.register(BuiltinRegistries.PLACED_FEATURE, new ResourceLocation(Chisel.MOD_ID, name),
+                    new PlacedFeature(Holder.hackyErase(configured), modifiers));
+        });
+    }
+
+    public static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier... placementModifiers) {
+        return ImmutableList.<PlacementModifier>builder()
+                .add(p_195347_)
+                .add(placementModifiers)
+                .add(InSquarePlacement.spread())
+                .add(BiomeFilter.biome())
+                .build();
+    }
+
+    public static List<PlacementModifier> commonOrePlacement(int veinsPerChunk, PlacementModifier... placementModifier) {
+        return orePlacement(CountPlacement.of(veinsPerChunk), placementModifier);
     }
 }

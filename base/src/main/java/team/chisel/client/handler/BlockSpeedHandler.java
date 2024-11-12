@@ -27,7 +27,7 @@ public class BlockSpeedHandler {
     private static Input manualInputCheck;
 
     static {
-        speedupBlocks.add(Blocks.WHITE_CONCRETE);
+//        speedupBlocks.add(Blocks.WHITE_CONCRETE); // TODO [BloodRaid] make the Blocks that are affected of this config based
     }
 
     @SubscribeEvent

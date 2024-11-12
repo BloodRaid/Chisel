@@ -88,7 +88,7 @@ public class ChiselBlockBuilder<T extends Block & ICarvable> {
     private String groupName;
 
     @Accessors(fluent = true)
-    private boolean opaque = true;
+    private boolean opaque = false;
     
     @Accessors(fluent = true)
     private Supplier<Supplier<RenderType>> layer = () -> RenderType::solid;

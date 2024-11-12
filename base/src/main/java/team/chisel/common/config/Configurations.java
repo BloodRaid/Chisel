@@ -17,7 +17,9 @@ public class Configurations {
     public static ForgeConfigSpec.BooleanValue chiselBackToVanillaLeaves;
 
     public static ForgeConfigSpec.IntValue marbleAmount;
+    public static ForgeConfigSpec.IntValue marbleVeinsPerChunk;
     public static ForgeConfigSpec.IntValue limestoneAmount;
+    public static ForgeConfigSpec.IntValue limestoneVeinsPerChunk;
     public static ForgeConfigSpec.BooleanValue basaltSpecialGen;
     public static ForgeConfigSpec.IntValue basaltSideThickness;
     public static ForgeConfigSpec.IntValue basaltBottomThickness;
@@ -59,8 +61,10 @@ public class Configurations {
 
         // worldgen
         BUILDER.push("worldgen");
-        marbleAmount = BUILDER.comment("Amount of marble to generate in the world; use 0 for none").defineInRange("marbleAmount", 20, 0, 30);
-        limestoneAmount = BUILDER.comment("Amount of limestone to generate in the world; use 0 for none").defineInRange("limestoneAmount", 18, 0, 30);
+        marbleAmount = BUILDER.comment("Amount of marble to generate in the world per Vine; use 0 for none").defineInRange("marbleAmount", 20, 0, 30);
+        marbleVeinsPerChunk = BUILDER.comment("Amount of marble Veins per Chunk that can generate").defineInRange("marbleVeinsPerChunk", 1, 0, 3);
+        limestoneAmount = BUILDER.comment("Amount of limestone to generate in the world per Vine; use 0 for none").defineInRange("limestoneAmount", 18, 0, 30);
+        limestoneVeinsPerChunk = BUILDER.comment("Amount of limestone Veins per Chunk that can generate").defineInRange("limestoneVeinsPerChunk", 1, 0, 3);
 
         BUILDER.push("basalt");
         basaltSpecialGen = BUILDER.comment("True to generate basalt only around lava lakes. False to do standard vein generation.").define("specialGen", true);

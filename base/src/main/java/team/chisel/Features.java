@@ -168,7 +168,7 @@ public class Features {
                 .model(ModelTemplates.cubeBottomTop("weathered_half-side", "default", "weathered"))
             .next("weathered_block_half").localizedName("Half-Weathered Big Tile")
                 .model(ModelTemplates.cubeBottomTop("weathered_block_half-side", "block", "weathered_block"))
-            .build(b -> b.sound(SoundType.STONE).strength(1.0f).speedFactor(Configurations.concreteVelocityMult.get().floatValue()));
+            .build(b -> b.sound(SoundType.STONE).strength(1.0f));
     //BlockSpeedHandler.speedupBlocks.add(b);
 
     public static final Map<DyeColor, Map<String, BlockEntry<BlockCarvableCarpet>>> CARPET = Arrays.stream(DyeColor.values())
@@ -262,7 +262,7 @@ public class Features {
                     .setGroupName(RegistrateLangProvider.toEnglishName(color.getSerializedName()) + " Concrete")
                     .initialProperties(() -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation(color.getSerializedName() + "_concrete")))
                     .variations(VariantTemplates.ROCK)
-                    .build(b -> b.speedFactor(Configurations.concreteVelocityMult.get().floatValue()))));
+                    .build()));
 //  BlockSpeedHandler.speedupBlocks.add(b);
 
     public static final Map<String, BlockEntry<BlockCarvable>> COPPER = _FACTORY.newType(Material.METAL, "metals/copper")
