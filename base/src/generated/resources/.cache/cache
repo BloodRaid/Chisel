@@ -8382,7 +8382,7 @@ d3a64a669d5b9224fc29cc39e99fa90d100bed44 data/chisel/tags/blocks/carpet/white.js
 3350b98831afb04423f8cf4f331c8a72a0b43b2a data/chisel/tags/blocks/carpet/yellow.json
 97e6f4373cc8feab23987d0c854ef23f85b941e6 data/chisel/tags/blocks/charcoal.json
 8f403d01b44a5320fcb7747bba1a35ec073f4fdd data/chisel/tags/blocks/cloud.json
-568b5058edb194fb8d2f7948016e005396612623 data/chisel/tags/blocks/coal.json
+4b554c7e248833456e09b17e1e2b8b267f68e950 data/chisel/tags/blocks/coal.json
 c0e3f0aca5b51348a4f8687e70b04d348d6bbf6c data/chisel/tags/blocks/cobblestone.json
 a20f6111f3182138ef013eeb718e153a23017e69 data/chisel/tags/blocks/concrete/black.json
 5b05914356ad6af752037014d0b6eef95de442a4 data/chisel/tags/blocks/concrete/blue.json
@@ -8510,7 +8510,7 @@ d3a64a669d5b9224fc29cc39e99fa90d100bed44 data/chisel/tags/items/carpet/white.jso
 3350b98831afb04423f8cf4f331c8a72a0b43b2a data/chisel/tags/items/carpet/yellow.json
 97e6f4373cc8feab23987d0c854ef23f85b941e6 data/chisel/tags/items/charcoal.json
 8f403d01b44a5320fcb7747bba1a35ec073f4fdd data/chisel/tags/items/cloud.json
-568b5058edb194fb8d2f7948016e005396612623 data/chisel/tags/items/coal.json
+4b554c7e248833456e09b17e1e2b8b267f68e950 data/chisel/tags/items/coal.json
 c0e3f0aca5b51348a4f8687e70b04d348d6bbf6c data/chisel/tags/items/cobblestone.json
 a20f6111f3182138ef013eeb718e153a23017e69 data/chisel/tags/items/concrete/black.json
 5b05914356ad6af752037014d0b6eef95de442a4 data/chisel/tags/items/concrete/blue.json

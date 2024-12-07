@@ -201,18 +201,11 @@ public class Features {
             .build();
     
     public static final Map<String, BlockEntry<BlockCarvable>> COAL = _FACTORY.newType(Material.STONE, "coal")
-            .equivalentTo(Tags.Blocks.STORAGE_BLOCKS_COAL)
+            .addBlock(Blocks.COAL_BLOCK)
             .applyTag(BlockTags.MINEABLE_WITH_PICKAXE)
             .applyTag(BlockTags.NEEDS_STONE_TOOL)
+            .applyTag(Tags.Blocks.STORAGE_BLOCKS_COAL)
             .initialProperties(() -> Blocks.COAL_BLOCK)
-//            .recipe((prov, block) -> new ShapelessRecipeBuilder(Items.COAL, 9)
-//                    .requires(block)
-//                    .unlockedBy("has_coal_block", prov.has(block))
-//                    .save(prov,block.getRegistryName() + "_uncraft"))
-//            .variation(VariantTemplates.withRecipe(VariantTemplates.RAW, (prov, block) -> new ShapelessRecipeBuilder(block, 1)
-//                    .requires(Items.COAL, 9)
-//                    .unlockedBy("has_charcoal", prov.has(Items.COAL))
-//                    .save(prov)))
             .variations(VariantTemplates.ROCK)
             .build();
 
